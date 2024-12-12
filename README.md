@@ -1,6 +1,6 @@
 # EX01 Developing a Simple Webserver
 
-# Date:
+# Date:04/10/2024
 # AIM:
 To develop a simple webserver to serve html pages and display the configuration details of laptop.
 
@@ -21,6 +21,113 @@ Serving the HTML pages.
 Testing the webserver.
 
 # PROGRAM:
+~~~
+from http.server import HTTPServer, BaseHTTPRequestHandler
+content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Configuration Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Laptop Configuration Details</h1>
+
+<table>
+    <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Operating System</td>
+        <td>Windows 10</td>
+    </tr>
+    <tr>
+        <td>Processor</td>
+        <td>Intel(R) Core(TM) i7-8550U</td>
+    </tr>
+    <tr>
+        <td>CPU Cores</td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>Logical CPUs</td>
+        <td>8</td>
+    </tr>
+    <tr>
+        <td>Memory</td>
+        <td>16 GB</td>
+    </tr>
+    <tr>
+        <td>Used Memory</td>
+        <td>8 GB</td>
+    </tr>
+    <tr>
+        <td>Free Memory</td>
+        <td>8 GB</td>
+    </tr>
+    <tr>
+        <td>Disk Usage</td>
+        <td>70%</td>
+    </tr>
+    <tr>
+        <td>Battery</td>
+        <td>85%</td>
+    </tr>
+    <tr>
+        <td>System Uptime</td>
+        <td>2 Days, 3 Hours</td>
+    </tr>
+</table>
+
+</body>
+</html>
+
+"""
+class myhandler(BaseHTTPRequestHandler):
+   def do_GET(self):
+       print("request received")
+       self.send_response(200)
+       self.send_header('content-type', 'text/html; charset=utf-8')
+       self.end_headers()
+       self.wfile.write(content.encode())
+server_address = ('',8000)
+httpd = HTTPServer(server_address,myhandler)
+print("my webserver is running...")
+httpd.serve_forever()
+~~~
+
 # OUTPUT:
+![Screenshot (45)](https://github.com/user-attachments/assets/c0abd9a2-6cc6-4881-a478-5d29832c2ea6)
+![Screenshot (46)](https://github.com/user-attachments/assets/4c4b0b86-8f6f-48ce-b668-61521f4b627e)
+
 # RESULT:
 The program for implementing simple webserver is executed successfully.
